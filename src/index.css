@@ -1,0 +1,1946 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Isometric Game Styles */
+.isometric-container {
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.isometric-room {
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+/* Isometric Floor */
+.isometric-floor {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) rotateX(60deg) rotateY(0deg);
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(45deg, #334155 25%, transparent 25%), 
+              linear-gradient(-45deg, #334155 25%, transparent 25%), 
+              linear-gradient(45deg, transparent 75%, #334155 75%), 
+              linear-gradient(-45deg, transparent 75%, #334155 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  background-color: #475569;
+  opacity: 0.8;
+  border-radius: 10px;
+}
+
+/* Isometric Walls */
+.isometric-wall-back {
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(0deg) rotateY(0deg);
+  width: 300px;
+  height: 200px;
+  background: linear-gradient(to bottom, #1e293b, #0f172a);
+  opacity: 0.9;
+  border-radius: 5px 5px 0 0;
+}
+
+.isometric-wall-left {
+  position: absolute;
+  bottom: 150px;
+  left: 20%;
+  transform: translateX(-50%) rotateY(-30deg);
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(to bottom, #334155, #1e293b);
+  opacity: 0.7;
+  border-radius: 5px 0 0 0;
+}
+
+.isometric-wall-right {
+  position: absolute;
+  bottom: 150px;
+  right: 20%;
+  transform: translateX(50%) rotateY(30deg);
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(to bottom, #334155, #1e293b);
+  opacity: 0.7;
+  border-radius: 0 5px 0 0;
+}
+
+/* Lighting Effect */
+.isometric-lighting {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  width: 40%;
+  height: 40%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Isometric Objects */
+.isometric-object {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.isometric-object:hover {
+  transform: scale(1.1) translateY(-5px);
+  filter: brightness(1.2);
+}
+
+.isometric-object.used {
+  opacity: 0.6;
+  filter: grayscale(0.5);
+}
+
+.isometric-object.available:hover {
+  animation: bounce 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Specific Object Styles */
+.isometric-bed {
+  bottom: 20%;
+  right: 15%;
+  width: 80px;
+  height: 40px;
+  background: linear-gradient(45deg, #7c3aed, #a855f7);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.isometric-sofa {
+  bottom: 40%;
+  left: 20%;
+  width: 70px;
+  height: 35px;
+  background: linear-gradient(45deg, #059669, #10b981);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.isometric-table {
+  bottom: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 30px;
+  background: linear-gradient(45deg, #dc2626, #ef4444);
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.isometric-water {
+  bottom: 25%;
+  right: 25%;
+  width: 25px;
+  height: 25px;
+  background: linear-gradient(45deg, #0ea5e9, #38bdf8);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.isometric-exercise {
+  bottom: 45%;
+  right: 30%;
+  width: 50px;
+  height: 25px;
+  background: linear-gradient(45deg, #6b7280, #9ca3af);
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.isometric-shower {
+  bottom: 30%;
+  left: 30%;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(45deg, #0891b2, #06b6d4);
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Shadows for objects */
+.isometric-shadow {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  filter: blur(3px);
+}
+
+/* Completion indicators */
+.isometric-completion {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Character */
+.isometric-character {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+  z-index: 10;
+}
+
+.alex-sprite-isometric {
+  width: 40px;
+  height: 60px;
+  background: linear-gradient(to bottom, #fbbf24, #f59e0b);
+  border-radius: 20px 20px 5px 5px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.alex-sprite-isometric::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25px;
+  height: 25px;
+  background: #fde68a;
+  border-radius: 50%;
+  border: 2px solid #f59e0b;
+}
+
+.alex-sprite-isometric::after {
+  content: '😊';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+}
+
+.alex-idle-iso {
+  animation: idle 2s ease-in-out infinite;
+}
+
+@keyframes idle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.alex-sleep::after {
+  content: '😴';
+}
+
+.alex-eat::after {
+  content: '😋';
+}
+
+.alex-exercise::after {
+  content: '💪';
+}
+
+.alex-relax::after {
+  content: '😌';
+}
+
+.alex-drinkWater::after {
+  content: '😊';
+}
+
+.alex-shower::after {
+  content: '🚿';
+}
+
+.character-shadow {
+  width: 30px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* Room Transitions */
+.room-transition {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Room-specific backgrounds */
+.room-bedroom {
+  background: linear-gradient(135deg, #581c87 0%, #3730a3 100%);
+}
+
+.room-living {
+  background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+}
+
+.room-kitchen {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+.room-gym {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+}
+
+.room-bathroom {
+  background: linear-gradient(135deg, #0e7490 0%, #0891b2 100%);
+}
+
+/* Decorative Elements */
+.isometric-bookshelf {
+  position: absolute;
+  bottom: 60%;
+  left: 10%;
+  width: 30px;
+  height: 80px;
+  background: linear-gradient(to bottom, #92400e, #b45309);
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+.isometric-floor-lamp {
+  position: absolute;
+  bottom: 70%;
+  right: 10%;
+  width: 15px;
+  height: 100px;
+  background: linear-gradient(to top, #374151, #6b7280);
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+.isometric-window {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 60px;
+  background: linear-gradient(to bottom, #bfdbfe, #93c5fd);
+  border: 3px solid #1e40af;
+  border-radius: 5px;
+  opacity: 0.6;
+}
+
+.isometric-wall-art {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(45deg, #7c2d12, #dc2626);
+  border: 2px solid #451a03;
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+.isometric-wall-clock {
+  position: absolute;
+  top: 35%;
+  right: 20%;
+  width: 25px;
+  height: 25px;
+  background: radial-gradient(circle, #f3f4f6, #9ca3af);
+  border: 2px solid #374151;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.isometric-plant {
+  position: absolute;
+  bottom: 25%;
+  left: 15%;
+  width: 20px;
+  height: 35px;
+  background: linear-gradient(to top, #166534, #22c55e);
+  border-radius: 10px 10px 50% 50%;
+  opacity: 0.8;
+}
+
+.isometric-rug {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 80px;
+  background: radial-gradient(ellipse, #7c2d12, #dc2626);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+/* Bedroom decorations */
+.isometric-wardrobe {
+  position: absolute;
+  bottom: 50%;
+  left: 5%;
+  width: 40px;
+  height: 90px;
+  background: linear-gradient(to bottom, #451a03, #92400e);
+  border-radius: 5px;
+  opacity: 0.8;
+}
+
+.isometric-chair {
+  position: absolute;
+  bottom: 30%;
+  right: 40%;
+  width: 25px;
+  height: 45px;
+  background: linear-gradient(to bottom, #7c2d12, #dc2626);
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+.isometric-vanity {
+  position: absolute;
+  bottom: 40%;
+  right: 5%;
+  width: 50px;
+  height: 35px;
+  background: linear-gradient(to bottom, #f3f4f6, #d1d5db);
+  border-radius: 5px;
+  opacity: 0.8;
+}
+
+.isometric-bedside-lamp {
+  position: absolute;
+  bottom: 25%;
+  right: 20%;
+  width: 12px;
+  height: 40px;
+  background: linear-gradient(to top, #374151, #fbbf24);
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+.isometric-bedroom-window {
+  position: absolute;
+  top: 25%;
+  right: 50%;
+  transform: translateX(50%);
+  width: 70px;
+  height: 50px;
+  background: linear-gradient(to bottom, #ddd6fe, #c4b5fd);
+  border: 3px solid #5b21b6;
+  border-radius: 5px;
+  opacity: 0.6;
+}
+
+.isometric-bedroom-rug {
+  position: absolute;
+  bottom: 15%;
+  right: 30%;
+  width: 80px;
+  height: 60px;
+  background: radial-gradient(ellipse, #581c87, #7c3aed);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.isometric-laundry-basket {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  width: 25px;
+  height: 30px;
+  background: linear-gradient(to bottom, #a3a3a3, #737373);
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+/* Bathroom decorations */
+.isometric-towel-rack {
+  position: absolute;
+  bottom: 60%;
+  right: 10%;
+  width: 35px;
+  height: 20px;
+  background: linear-gradient(to right, #f3f4f6, #06b6d4);
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+.isometric-sink {
+  position: absolute;
+  bottom: 45%;
+  right: 20%;
+  width: 40px;
+  height: 25px;
+  background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+.isometric-mirror {
+  position: absolute;
+  top: 30%;
+  right: 25%;
+  width: 35px;
+  height: 45px;
+  background: linear-gradient(to bottom, #e0f2fe, #0891b2);
+  border: 2px solid #0e7490;
+  border-radius: 5px;
+  opacity: 0.7;
+}
+
+.isometric-bathroom-rug {
+  position: absolute;
+  bottom: 15%;
+  left: 40%;
+  width: 60px;
+  height: 40px;
+  background: radial-gradient(ellipse, #0e7490, #06b6d4);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.isometric-trash-bin {
+  position: absolute;
+  bottom: 20%;
+  right: 5%;
+  width: 18px;
+  height: 25px;
+  background: linear-gradient(to bottom, #6b7280, #374151);
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+.isometric-bathroom-window {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 50px;
+  height: 40px;
+  background: linear-gradient(to bottom, #cffafe, #67e8f9);
+  border: 3px solid #0891b2;
+  border-radius: 5px;
+  opacity: 0.6;
+}
+
+.isometric-wall-frame {
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  width: 30px;
+  height: 25px;
+  background: linear-gradient(45deg, #0e7490, #06b6d4);
+  border: 2px solid #164e63;
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+/* Kitchen decorations */
+.isometric-cutting-board {
+  position: absolute;
+  bottom: 35%;
+  right: 30%;
+  width: 25px;
+  height: 15px;
+  background: linear-gradient(to bottom, #92400e, #b45309);
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+.isometric-spice-shelf {
+  position: absolute;
+  bottom: 70%;
+  left: 20%;
+  width: 40px;
+  height: 15px;
+  background: linear-gradient(to right, #92400e, #dc2626);
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+.isometric-fridge {
+  position: absolute;
+  bottom: 40%;
+  left: 5%;
+  width: 35px;
+  height: 80px;
+  background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
+  border-radius: 5px;
+  opacity: 0.9;
+}
+
+.isometric-coffee-station {
+  position: absolute;
+  bottom: 50%;
+  right: 15%;
+  width: 30px;
+  height: 25px;
+  background: linear-gradient(to bottom, #451a03, #92400e);
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+.isometric-trash-recycle {
+  position: absolute;
+  bottom: 15%;
+  right: 10%;
+  width: 20px;
+  height: 30px;
+  background: linear-gradient(to bottom, #166534, #22c55e);
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+/* Gym decorations */
+.isometric-free-weights {
+  position: absolute;
+  bottom: 25%;
+  left: 15%;
+  width: 30px;
+  height: 15px;
+  background: linear-gradient(to right, #374151, #6b7280);
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+.isometric-bench {
+  position: absolute;
+  bottom: 35%;
+  left: 40%;
+  width: 50px;
+  height: 20px;
+  background: linear-gradient(to bottom, #1f2937, #374151);
+  border-radius: 5px;
+  opacity: 0.8;
+}
+
+.isometric-gym-mirror {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  width: 80px;
+  height: 60px;
+  background: linear-gradient(to bottom, #f1f5f9, #cbd5e1);
+  border: 3px solid #475569;
+  border-radius: 5px;
+  opacity: 0.7;
+}
+
+.isometric-yoga-mat {
+  position: absolute;
+  bottom: 20%;
+  right: 20%;
+  width: 60px;
+  height: 25px;
+  background: linear-gradient(to right, #7c3aed, #a855f7);
+  border-radius: 10px;
+  opacity: 0.8;
+}
+
+.isometric-water-bottle {
+  position: absolute;
+  bottom: 40%;
+  right: 5%;
+  width: 12px;
+  height: 25px;
+  background: linear-gradient(to bottom, #0ea5e9, #38bdf8);
+  border-radius: 6px;
+  opacity: 0.9;
+}
+
+.isometric-ceiling-fan {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 15px;
+  background: linear-gradient(to right, #6b7280, #9ca3af);
+  border-radius: 30px;
+  opacity: 0.6;
+}
+
+.isometric-motivational-poster {
+  position: absolute;
+  top: 40%;
+  right: 15%;
+  width: 35px;
+  height: 25px;
+  background: linear-gradient(45deg, #dc2626, #fbbf24);
+  border: 2px solid #451a03;
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+.isometric-speaker {
+  position: absolute;
+  bottom: 60%;
+  right: 30%;
+  width: 20px;
+  height: 30px;
+  background: linear-gradient(to bottom, #1f2937, #111827);
+  border-radius: 5px;
+  opacity: 0.8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .isometric-floor {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .isometric-wall-back {
+    width: 250px;
+    height: 150px;
+  }
+  
+  .isometric-wall-left,
+  .isometric-wall-right {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .isometric-object {
+    transform: scale(0.8);
+  }
+}
+
+/* 2D Pixel Art Game Styles */
+.pixel-game-container {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+}
+
+.pixel-room {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+}
+
+/* Room Backgrounds */
+.pixel-room-bg {
+  position: absolute;
+  inset: 0;
+  background-size: 16px 16px;
+  image-rendering: pixelated;
+  filter: contrast(1.1) saturate(1.2);
+}
+
+.room-bg-bedroom {
+  background: 
+    /* Ambient lighting from window */
+    radial-gradient(ellipse at 80% 20%, rgba(255, 248, 220, 0.15) 0%, transparent 50%),
+    /* Ceiling light */
+    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
+    /* Wooden floor planks */
+    repeating-linear-gradient(
+      90deg,
+      #8B4513 0px,
+      #8B4513 3px,
+      #A0522D 3px,
+      #A0522D 6px,
+      #CD853F 6px,
+      #CD853F 9px,
+      #8B4513 9px,
+      #8B4513 12px
+    ),
+    /* Wall texture with subtle pattern */
+    repeating-linear-gradient(
+      0deg,
+      #E6E6FA 0px,
+      #E6E6FA 8px,
+      #DDA0DD 8px,
+      #DDA0DD 16px
+    );
+  background-position: 0 0, 0 0, 0 75%, 0 0;
+  background-size: 100% 100%, 100% 100%, 100% 25%, 100% 75%;
+  background-repeat: no-repeat, repeat;
+}
+
+.room-bg-living {
+  background: 
+    /* TV glow */
+    radial-gradient(ellipse at 25% 40%, rgba(0, 150, 255, 0.1) 0%, transparent 40%),
+    /* Window light */
+    radial-gradient(ellipse at 85% 25%, rgba(255, 248, 220, 0.12) 0%, transparent 45%),
+    /* Carpet texture */
+    repeating-linear-gradient(
+      45deg,
+      #8B0000 0px,
+      #8B0000 2px,
+      #A52A2A 2px,
+      #A52A2A 4px,
+      #CD5C5C 4px,
+      #CD5C5C 6px
+    ),
+    /* Hardwood floor */
+    repeating-linear-gradient(
+      90deg,
+      #654321 0px,
+      #654321 4px,
+      #8B4513 4px,
+      #8B4513 8px
+    ),
+    /* Wall with subtle texture */
+    linear-gradient(
+      180deg,
+      #F5F5DC 0%,
+      #F0E68C 50%,
+      #F5F5DC 100%
+    );
+  background-position: 0 0, 0 0, 30% 80%, 0 75%, 0 0;
+  background-size: 100% 100%, 100% 100%, 40% 20%, 100% 25%, 100% 75%;
+  background-repeat: no-repeat, repeat;
+}
+
+.room-bg-kitchen {
+  background: 
+    /* Stove flame glow */
+    radial-gradient(circle at 70% 60%, rgba(255, 100, 0, 0.08) 0%, transparent 25%),
+    /* Under-cabinet lighting */
+    linear-gradient(180deg, transparent 45%, rgba(255, 255, 255, 0.1) 50%, transparent 55%),
+    /* Tile floor pattern */
+    repeating-linear-gradient(
+      90deg,
+      #F5F5F5 0px,
+      #F5F5F5 7px,
+      #E0E0E0 7px,
+      #E0E0E0 8px,
+      #F5F5F5 8px,
+      #F5F5F5 15px,
+      #E0E0E0 15px,
+      #E0E0E0 16px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #F5F5F5 0px,
+      #F5F5F5 7px,
+      #E0E0E0 7px,
+      #E0E0E0 8px,
+      #F5F5F5 8px,
+      #F5F5F5 15px,
+      #E0E0E0 15px,
+      #E0E0E0 16px
+    ),
+    /* Wall tiles */
+    repeating-linear-gradient(
+      90deg,
+      #FFFAF0 0px,
+      #FFFAF0 15px,
+      #F0F8FF 15px,
+      #F0F8FF 16px
+    );
+  background-position: 0 0, 0 0, 0 75%, 0 75%, 0 0;
+  background-size: 100% 100%, 100% 100%, 100% 25%, 100% 25%, 100% 75%;
+  background-repeat: no-repeat, repeat;
+}
+
+.room-bg-gym {
+  background: 
+    /* Mirror reflection light */
+    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 10%, transparent 20%),
+    /* Rubber mat texture */
+    repeating-linear-gradient(
+      45deg,
+      #2F4F4F 0px,
+      #2F4F4F 3px,
+      #708090 3px,
+      #708090 6px
+    ),
+    /* Concrete floor */
+    repeating-linear-gradient(
+      0deg,
+      #696969 0px,
+      #696969 12px,
+      #778899 12px,
+      #778899 13px,
+      #696969 13px,
+      #696969 25px,
+      #778899 25px,
+      #778899 26px
+    ),
+    /* Wall texture */
+    linear-gradient(
+      180deg,
+      #D3D3D3 0%,
+      #C0C0C0 100%
+    );
+  background-position: 0 0, 40% 80%, 0 75%, 0 0;
+  background-size: 100% 100%, 35% 20%, 100% 25%, 100% 75%;
+  background-repeat: no-repeat, repeat;
+}
+
+.room-bg-bathroom {
+  background: 
+    /* Mirror light reflection */
+    radial-gradient(ellipse at 75% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 30%),
+    /* Steam effect */
+    radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+    /* Tile floor pattern */
+    repeating-linear-gradient(
+      90deg,
+      #E0FFFF 0px,
+      #E0FFFF 7px,
+      #B0E0E6 7px,
+      #B0E0E6 8px,
+      #E0FFFF 8px,
+      #E0FFFF 15px,
+      #B0E0E6 15px,
+      #B0E0E6 16px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #E0FFFF 0px,
+      #E0FFFF 7px,
+      #B0E0E6 7px,
+      #B0E0E6 8px,
+      #E0FFFF 8px,
+      #E0FFFF 15px,
+      #B0E0E6 15px,
+      #B0E0E6 16px
+    ),
+    /* Wall tiles */
+    repeating-linear-gradient(
+      45deg,
+      #F0F8FF 0px,
+      #F0F8FF 15px,
+      #E6F3FF 15px,
+      #E6F3FF 16px
+    );
+  background-position: 0 0, 0 0, 0 75%, 0 75%, 0 0;
+  background-size: 100% 100%, 100% 100%, 100% 25%, 100% 25%, 100% 75%;
+  background-repeat: no-repeat, repeat;
+}
+
+/* 2D Pixel Objects */
+.pixel-object {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  image-rendering: pixelated;
+  border-radius: 1px;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.4),
+    2px 2px 6px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(0, 0, 0, 0.1);
+  filter: contrast(1.1) saturate(1.1);
+}
+
+.pixel-object:hover {
+  transform: scale(1.08) translateY(-3px);
+  filter: brightness(1.25) contrast(1.15) saturate(1.2);
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.3),
+    3px 3px 8px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.pixel-object.used {
+  opacity: 0.7;
+  filter: grayscale(0.6) brightness(0.8) contrast(0.9);
+}
+
+.pixel-object.available:hover {
+  animation: pixel-bounce 0.8s ease-in-out;
+}
+
+@keyframes pixel-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: scale(1) translateY(0);
+  }
+  40% {
+    transform: scale(1.05) translateY(-6px);
+  }
+  60% {
+    transform: scale(1.02) translateY(-3px);
+  }
+}
+
+/* Enhanced 2D Object Styles with Realistic Details */
+
+/* BEDROOM OBJECTS */
+.pixel-bed {
+  bottom: 25%;
+  right: 15%;
+  width: 96px;
+  height: 64px;
+  background: 
+    /* Pillows with fabric texture */
+    radial-gradient(ellipse at 75% 25%, #F5F5F5 0%, #E6E6FA 30%, #DDA0DD 100%),
+    radial-gradient(ellipse at 85% 35%, #F0F8FF 0%, #E0E6FF 50%, #D8BFD8 100%),
+    /* Blanket with folds */
+    linear-gradient(135deg, #8A2BE2 0%, #9370DB 25%, #7B68EE 50%, #6A5ACD 75%, #483D8B 100%),
+    /* Mattress edge */
+    linear-gradient(to bottom, #F5F5DC 0%, #DEB887 100%),
+    /* Bed frame */
+    linear-gradient(to bottom, #8B4513 0%, #A0522D 50%, #654321 100%);
+  background-size: 
+    24px 16px,  /* Pillow 1 */
+    20px 14px,  /* Pillow 2 */
+    100% 70%,   /* Blanket */
+    100% 15%,   /* Mattress */
+    100% 15%;   /* Frame */
+  background-position: 
+    15% 15%,    /* Pillow 1 */
+    40% 20%,    /* Pillow 2 */
+    0 25%,      /* Blanket */
+    0 70%,      /* Mattress */
+    0 85%;      /* Frame */
+  background-repeat: no-repeat;
+}
+
+.pixel-bed::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 65%;
+  width: 8px;
+  height: 12px;
+  background: linear-gradient(45deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 1px;
+  box-shadow: 0 0 2px rgba(255, 215, 0, 0.5);
+}
+
+.pixel-computer {
+  bottom: 45%;
+  left: 15%;
+  width: 72px;
+  height: 56px;
+  background: 
+    /* Monitor screen with reflection */
+    linear-gradient(135deg, #000080 0%, #191970 50%, #000000 100%),
+    /* Monitor bezel */
+    linear-gradient(to bottom, #2F2F2F 0%, #1C1C1C 100%),
+    /* Keyboard */
+    repeating-linear-gradient(90deg, #F5F5F5 0%, #F5F5F5 2px, #E0E0E0 2px, #E0E0E0 3px),
+    /* Desk surface */
+    linear-gradient(to bottom, #DEB887 0%, #D2B48C 50%, #BC9A6A 100%);
+  background-size: 
+    48px 32px,  /* Screen */
+    52px 36px,  /* Monitor */
+    40px 8px,   /* Keyboard */
+    100% 20%;   /* Desk */
+  background-position: 
+    12% 10%,    /* Screen */
+    10% 8%,     /* Monitor */
+    15% 65%,    /* Keyboard */
+    0 80%;      /* Desk */
+  background-repeat: no-repeat;
+}
+
+.pixel-computer::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 15%;
+  width: 44px;
+  height: 28px;
+  background: linear-gradient(45deg, rgba(0, 150, 255, 0.3) 0%, transparent 50%);
+  border-radius: 1px;
+}
+
+.pixel-wardrobe {
+  bottom: 50%;
+  left: 5%;
+  width: 48px;
+  height: 80px;
+  background: 
+    /* Door handles */
+    radial-gradient(circle at 80% 50%, #C0C0C0 0%, #A9A9A9 100%),
+    radial-gradient(circle at 20% 50%, #C0C0C0 0%, #A9A9A9 100%),
+    /* Door panels with wood grain */
+    repeating-linear-gradient(0deg, #8B4513 0%, #8B4513 2px, #A0522D 2px, #A0522D 4px),
+    /* Door frames */
+    linear-gradient(90deg, #654321 0%, #654321 2px, transparent 2px, transparent 22px, #654321 22px, #654321 24px, transparent 24px, transparent 44px, #654321 44px),
+    /* Main body */
+    linear-gradient(to bottom, #D2691E 0%, #A0522D 50%, #8B4513 100%);
+  background-size: 
+    3px 3px,    /* Handle 1 */
+    3px 3px,    /* Handle 2 */
+    100% 90%,   /* Wood grain */
+    100% 90%,   /* Door frames */
+    100% 100%;  /* Body */
+  background-position: 
+    38% 50%,    /* Handle 1 */
+    62% 50%,    /* Handle 2 */
+    0 5%,       /* Wood grain */
+    0 5%,       /* Door frames */
+    0 0;        /* Body */
+  background-repeat: no-repeat, no-repeat, repeat, no-repeat, no-repeat;
+}
+
+.pixel-bedroom-mirror {
+  bottom: 35%;
+  right: 5%;
+  width: 32px;
+  height: 48px;
+  background: 
+    /* Reflection with room elements */
+    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(240, 248, 255, 0.2) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(230, 230, 250, 0.2) 75%, rgba(255, 255, 255, 0.1) 100%),
+    /* Mirror surface */
+    linear-gradient(135deg, #F0F8FF 0%, #E6E6FA 50%, #D8BFD8 100%),
+    /* Frame */
+    linear-gradient(to bottom, #DAA520 0%, #B8860B 50%, #8B7355 100%);
+  background-size: 
+    28px 44px,  /* Reflection */
+    30px 46px,  /* Mirror */
+    100% 100%;  /* Frame */
+  background-position: 
+    6% 4%,      /* Reflection */
+    4% 2%,      /* Mirror */
+    0 0;        /* Frame */
+  background-repeat: no-repeat;
+}
+
+/* LIVING ROOM OBJECTS */
+
+.pixel-sofa {
+  bottom: 40%;
+  left: 20%;
+  width: 88px;
+  height: 48px;
+  background: 
+    /* Cushion details and buttons */
+    radial-gradient(circle at 25% 40%, #228B22 0%, #32CD32 100%),
+    radial-gradient(circle at 75% 40%, #228B22 0%, #32CD32 100%),
+    /* Armrests */
+    linear-gradient(to right, #2E8B57 0%, #3CB371 50%, #2E8B57 100%),
+    /* Main cushions with fabric texture */
+    repeating-linear-gradient(90deg, #32CD32 0%, #32CD32 3px, #228B22 3px, #228B22 6px),
+    /* Sofa base/legs */
+    linear-gradient(to bottom, #8B4513 0%, #654321 100%);
+  background-size: 
+    16px 20px,  /* Cushion 1 */
+    16px 20px,  /* Cushion 2 */
+    100% 25%,   /* Armrests */
+    100% 50%,   /* Main cushions */
+    100% 25%;   /* Base */
+  background-position: 
+    20% 25%,    /* Cushion 1 */
+    65% 25%,    /* Cushion 2 */
+    0 0%,       /* Armrests */
+    0 25%,      /* Main cushions */
+    0 75%;      /* Base */
+  background-repeat: no-repeat;
+}
+
+.pixel-tv {
+  bottom: 55%;
+  left: 10%;
+  width: 64px;
+  height: 40px;
+  background: 
+    /* Screen with content */
+    linear-gradient(135deg, #000080 0%, #4169E1 25%, #0000FF 50%, #191970 75%, #000000 100%),
+    /* Screen bezel */
+    linear-gradient(to bottom, #2F2F2F 0%, #1C1C1C 100%),
+    /* TV stand */
+    linear-gradient(to bottom, #696969 0%, #2F2F2F 100%);
+  background-size: 
+    56px 28px,  /* Screen */
+    60px 32px,  /* Bezel */
+    100% 20%;   /* Stand */
+  background-position: 
+    6% 10%,     /* Screen */
+    3% 5%,      /* Bezel */
+    0 80%;      /* Stand */
+  background-repeat: no-repeat;
+}
+
+.pixel-tv::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 8%;
+  width: 52px;
+  height: 24px;
+  background: linear-gradient(45deg, rgba(0, 150, 255, 0.2) 0%, transparent 50%);
+  border-radius: 1px;
+}
+
+.pixel-bookshelf {
+  bottom: 60%;
+  left: 10%;
+  width: 40px;
+  height: 72px;
+  background: 
+    /* Books with different colors and sizes */
+    linear-gradient(90deg, #DC143C 0%, #DC143C 8%, #FFD700 8%, #FFD700 16%, #32CD32 16%, #32CD32 24%, #4169E1 24%, #4169E1 32%, #8A2BE2 32%, #8A2BE2 40%),
+    linear-gradient(90deg, #FF6347 0%, #FF6347 6%, #20B2AA 6%, #20B2AA 14%, #FF1493 14%, #FF1493 22%, #228B22 22%, #228B22 30%, #4682B4 30%, #4682B4 38%),
+    linear-gradient(90deg, #FF4500 0%, #FF4500 10%, #9370DB 10%, #9370DB 20%, #00CED1 20%, #00CED1 30%, #FF69B4 30%, #FF69B4 40%),
+    /* Shelf surfaces */
+    repeating-linear-gradient(0deg, #8B4513 0%, #8B4513 2px, #A0522D 2px, #A0522D 18px, #8B4513 18px, #8B4513 20px),
+    /* Main frame */
+    linear-gradient(to bottom, #D2691E 0%, #A0522D 50%, #8B4513 100%);
+  background-size: 
+    100% 16px,  /* Books row 1 */
+    100% 14px,  /* Books row 2 */
+    100% 15px,  /* Books row 3 */
+    100% 100%,  /* Shelves */
+    100% 100%;  /* Frame */
+  background-position: 
+    0 15%,      /* Books row 1 */
+    0 40%,      /* Books row 2 */
+    0 65%,      /* Books row 3 */
+    0 0,        /* Shelves */
+    0 0;        /* Frame */
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, no-repeat;
+}
+
+.pixel-videogame {
+  bottom: 30%;
+  right: 25%;
+  width: 48px;
+  height: 24px;
+  background: 
+    /* Controllers */
+    radial-gradient(ellipse at 25% 50%, #2F2F2F 0%, #1C1C1C 100%),
+    radial-gradient(ellipse at 75% 50%, #2F2F2F 0%, #1C1C1C 100%),
+    /* Console with vents */
+    repeating-linear-gradient(90deg, #000000 0%, #000000 2px, #1C1C1C 2px, #1C1C1C 4px),
+    /* Base */
+    linear-gradient(to bottom, #2F2F2F 0%, #000000 100%);
+  background-size: 
+    12px 8px,   /* Controller 1 */
+    12px 8px,   /* Controller 2 */
+    100% 60%,   /* Console */
+    100% 100%;  /* Base */
+  background-position: 
+    10% 20%,    /* Controller 1 */
+    65% 20%,    /* Controller 2 */
+    0 40%,      /* Console */
+    0 0;        /* Base */
+  background-repeat: no-repeat;
+}
+
+.pixel-living-window {
+  position: absolute;
+  top: 15%;
+  right: 10%;
+  width: 56px;
+  height: 40px;
+  background: 
+    /* Outside view with sky and clouds */
+    linear-gradient(180deg, #87CEEB 0%, #87CEFA 50%, #98FB98 100%),
+    /* Window panes */
+    linear-gradient(90deg, transparent 48%, rgba(255, 255, 255, 0.3) 50%, transparent 52%),
+    linear-gradient(0deg, transparent 48%, rgba(255, 255, 255, 0.3) 50%, transparent 52%),
+    /* Window frame */
+    linear-gradient(to bottom, #8B4513 0%, #654321 100%);
+  background-size: 
+    52px 36px,  /* View */
+    100% 100%,  /* Vertical pane */
+    100% 100%,  /* Horizontal pane */
+    100% 100%;  /* Frame */
+  background-position: 
+    4% 10%,     /* View */
+    0 0,        /* Vertical pane */
+    0 0,        /* Horizontal pane */
+    0 0;        /* Frame */
+  background-repeat: no-repeat;
+  border: 2px solid #654321;
+  border-radius: 2px;
+}
+
+/* KITCHEN OBJECTS */
+.pixel-table {
+  bottom: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 48px;
+  background: 
+    /* Plates and utensils */
+    radial-gradient(circle at 30% 30%, #F5F5F5 0%, #E0E0E0 100%),
+    radial-gradient(circle at 70% 30%, #F5F5F5 0%, #E0E0E0 100%),
+    /* Tablecloth pattern */
+    repeating-linear-gradient(45deg, #FF6347 0%, #FF6347 4px, #FFE4E1 4px, #FFE4E1 8px),
+    /* Table surface */
+    linear-gradient(to bottom, #DEB887 0%, #D2B48C 50%, #BC9A6A 100%),
+    /* Table legs */
+    repeating-linear-gradient(90deg, #8B4513 0%, #8B4513 6px, transparent 6px, transparent 14px, #8B4513 14px, #8B4513 20px, transparent 20px, transparent 60px, #8B4513 60px, #8B4513 66px, transparent 66px, transparent 74px, #8B4513 74px);
+  background-size: 
+    12px 12px,  /* Plate 1 */
+    12px 12px,  /* Plate 2 */
+    100% 60%,   /* Tablecloth */
+    100% 60%,   /* Surface */
+    100% 40%;   /* Legs */
+  background-position: 
+    25% 20%,    /* Plate 1 */
+    65% 20%,    /* Plate 2 */
+    0 0,        /* Tablecloth */
+    0 0,        /* Surface */
+    0 60%;      /* Legs */
+  background-repeat: no-repeat;
+}
+
+.pixel-fridge {
+  bottom: 40%;
+  left: 5%;
+  width: 40px;
+  height: 80px;
+  background: 
+    /* Door handles */
+    linear-gradient(to bottom, #C0C0C0 0%, #A9A9A9 100%),
+    linear-gradient(to bottom, #C0C0C0 0%, #A9A9A9 100%),
+    /* Freezer compartment */
+    linear-gradient(to bottom, #F8F8FF 0%, #F0F8FF 100%),
+    /* Main compartment */
+    linear-gradient(to bottom, #FFFAFA 0%, #F5F5F5 100%),
+    /* Base/feet */
+    linear-gradient(to bottom, #2F2F2F 0%, #1C1C1C 100%);
+  background-size: 
+    3px 12px,   /* Handle 1 */
+    3px 20px,   /* Handle 2 */
+    100% 35%,   /* Freezer */
+    100% 60%,   /* Main */
+    100% 5%;    /* Base */
+  background-position: 
+    85% 15%,    /* Handle 1 */
+    85% 50%,    /* Handle 2 */
+    0 0,        /* Freezer */
+    0 35%,      /* Main */
+    0 95%;      /* Base */
+  background-repeat: no-repeat;
+}
+
+.pixel-stove {
+  bottom: 45%;
+  right: 15%;
+  width: 56px;
+  height: 40px;
+  background: 
+    /* Burner flames */
+    radial-gradient(circle at 25% 40%, #FF4500 0%, #FF6347 50%, transparent 70%),
+    radial-gradient(circle at 75% 40%, #FF4500 0%, #FF6347 50%, transparent 70%),
+    /* Burner grates */
+    repeating-linear-gradient(90deg, #2F2F2F 0%, #2F2F2F 2px, transparent 2px, transparent 4px),
+    /* Control knobs */
+    radial-gradient(circle at 20% 80%, #C0C0C0 0%, #A9A9A9 100%),
+    radial-gradient(circle at 80% 80%, #C0C0C0 0%, #A9A9A9 100%),
+    /* Stove surface */
+    linear-gradient(to bottom, #2F2F2F 0%, #1C1C1C 100%);
+  background-size: 
+    8px 8px,    /* Flame 1 */
+    8px 8px,    /* Flame 2 */
+    100% 60%,   /* Grates */
+    4px 4px,    /* Knob 1 */
+    4px 4px,    /* Knob 2 */
+    100% 100%;  /* Surface */
+  background-position: 
+    20% 30%,    /* Flame 1 */
+    70% 30%,    /* Flame 2 */
+    0 20%,      /* Grates */
+    15% 75%,    /* Knob 1 */
+    75% 75%,    /* Knob 2 */
+    0 0;        /* Surface */
+  background-repeat: no-repeat;
+}
+
+.pixel-microwave {
+  bottom: 65%;
+  right: 25%;
+  width: 48px;
+  height: 32px;
+  background: 
+    /* Display screen */
+    linear-gradient(to bottom, #000080 0%, #000000 100%),
+    /* Door window */
+    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+    /* Control panel */
+    repeating-linear-gradient(90deg, #E0E0E0 0%, #E0E0E0 3px, #C0C0C0 3px, #C0C0C0 6px),
+    /* Main body */
+    linear-gradient(to bottom, #F5F5F5 0%, #E0E0E0 100%);
+  background-size: 
+    12px 4px,   /* Display */
+    24px 20px,  /* Window */
+    16px 8px,   /* Controls */
+    100% 100%;  /* Body */
+  background-position: 
+    65% 20%,    /* Display */
+    10% 25%,    /* Window */
+    60% 60%,    /* Controls */
+    0 0;        /* Body */
+  background-repeat: no-repeat;
+}
+
+.pixel-water {
+  bottom: 25%;
+  right: 25%;
+  width: 20px;
+  height: 40px;
+  background: 
+    /* Water with bubbles */
+    radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.3) 0%, transparent 30%),
+    radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.2) 0%, transparent 25%),
+    linear-gradient(to bottom, #00BFFF 0%, #1E90FF 50%, #0000FF 100%),
+    /* Bottle cap */
+    linear-gradient(to bottom, #FF6347 0%, #DC143C 100%),
+    /* Bottle body with transparency effect */
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 100%);
+  background-size: 
+    16px 28px,  /* Bubbles 1 */
+    16px 28px,  /* Bubbles 2 */
+    16px 28px,  /* Water */
+    18px 6px,   /* Cap */
+    100% 100%;  /* Bottle */
+  background-position: 
+    10% 20%,    /* Bubbles 1 */
+    10% 20%,    /* Bubbles 2 */
+    10% 20%,    /* Water */
+    5% 5%,      /* Cap */
+    0 0;        /* Bottle */
+  background-repeat: no-repeat;
+}
+
+/* BATHROOM OBJECTS */
+.pixel-shower {
+  bottom: 30%;
+  left: 30%;
+  width: 56px;
+  height: 72px;
+  background: 
+    /* Water droplets */
+    radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.6) 0%, transparent 30%),
+    radial-gradient(circle at 40% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 25%),
+    radial-gradient(circle at 60% 45%, rgba(255, 255, 255, 0.5) 0%, transparent 28%),
+    radial-gradient(circle at 80% 55%, rgba(255, 255, 255, 0.3) 0%, transparent 22%),
+    /* Water streams */
+    repeating-linear-gradient(180deg, #00BFFF 0%, transparent 2px, transparent 4px, #87CEEB 4px, transparent 6px, transparent 8px),
+    /* Shower head */
+    radial-gradient(circle at center, #C0C0C0 0%, #A9A9A9 50%, #808080 100%),
+    /* Shower arm */
+    linear-gradient(to bottom, #C0C0C0 0%, #A9A9A9 100%),
+    /* Glass door/curtain */
+    linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.2) 100%),
+    /* Shower base */
+    linear-gradient(to bottom, #F5F5F5 0%, #E0E0E0 100%);
+  background-size: 
+    40px 50px,  /* Droplets 1 */
+    40px 50px,  /* Droplets 2 */
+    40px 50px,  /* Droplets 3 */
+    40px 50px,  /* Droplets 4 */
+    40px 50px,  /* Water streams */
+    16px 8px,   /* Shower head */
+    4px 16px,   /* Shower arm */
+    100% 100%,  /* Glass */
+    100% 15%;   /* Base */
+  background-position: 
+    15% 25%,    /* Droplets 1 */
+    15% 25%,    /* Droplets 2 */
+    15% 25%,    /* Droplets 3 */
+    15% 25%,    /* Droplets 4 */
+    15% 25%,    /* Water streams */
+    20% 10%,    /* Shower head */
+    30% 10%,    /* Shower arm */
+    0 0,        /* Glass */
+    0 85%;      /* Base */
+  background-repeat: no-repeat;
+}
+
+.pixel-bathroom-sink {
+  bottom: 45%;
+  right: 20%;
+  width: 48px;
+  height: 32px;
+  background: 
+    /* Faucet */
+    linear-gradient(to bottom, #C0C0C0 0%, #A9A9A9 100%),
+    /* Water stream */
+    linear-gradient(to bottom, rgba(0, 191, 255, 0.6) 0%, rgba(135, 206, 235, 0.4) 100%),
+    /* Sink basin */
+    radial-gradient(ellipse at center, #F8F8FF 0%, #F0F8FF 50%, #E6E6FA 100%),
+    /* Counter surface */
+    linear-gradient(to bottom, #F5F5DC 0%, #F0E68C 100%);
+  background-size: 
+    8px 12px,   /* Faucet */
+    2px 8px,    /* Water */
+    32px 16px,  /* Basin */
+    100% 40%;   /* Counter */
+  background-position: 
+    40% 20%,    /* Faucet */
+    43% 35%,    /* Water */
+    17% 35%,    /* Basin */
+    0 60%;      /* Counter */
+  background-repeat: no-repeat;
+}
+
+.pixel-toilet {
+  bottom: 25%;
+  left: 15%;
+  width: 32px;
+  height: 48px;
+  background: 
+    /* Toilet seat */
+    ellipse at center,
+    /* Tank lid */
+    linear-gradient(to bottom, #F8F8FF 0%, #F0F8FF 100%),
+    /* Tank */
+    linear-gradient(to bottom, #FFFAFA 0%, #F5F5F5 100%),
+    /* Bowl */
+    radial-gradient(ellipse at center, #F8F8FF 0%, #F0F8FF 100%),
+    /* Base */
+    linear-gradient(to bottom, #F5F5F5 0%, #E0E0E0 100%);
+  background-size: 
+    24px 4px,   /* Seat */
+    28px 12px,  /* Tank lid */
+    30px 20px,  /* Tank */
+    26px 20px,  /* Bowl */
+    100% 100%;  /* Base */
+  background-position: 
+    6% 45%,     /* Seat */
+    3% 15%,     /* Tank lid */
+    0 10%,      /* Tank */
+    6% 50%,     /* Bowl */
+    0 0;        /* Base */
+  background-repeat: no-repeat;
+}
+
+.pixel-skincare {
+  bottom: 55%;
+  right: 5%;
+  width: 32px;
+  height: 24px;
+  background: 
+    /* Various bottles and containers */
+    linear-gradient(to bottom, #FFB6C1 0%, #FF69B4 100%),
+    linear-gradient(to bottom, #98FB98 0%, #32CD32 100%),
+    linear-gradient(to bottom, #87CEEB 0%, #4169E1 100%),
+    linear-gradient(to bottom, #F0E68C 0%, #FFD700 100%),
+    /* Shelf surface */
+    linear-gradient(to bottom, #F5F5DC 0%, #F0E68C 100%);
+  background-size: 
+    6px 16px,   /* Bottle 1 */
+    5px 14px,   /* Bottle 2 */
+    7px 12px,   /* Bottle 3 */
+    6px 10px,   /* Bottle 4 */
+    100% 25%;   /* Shelf */
+  background-position: 
+    10% 20%,    /* Bottle 1 */
+    30% 25%,    /* Bottle 2 */
+    50% 30%,    /* Bottle 3 */
+    75% 35%,    /* Bottle 4 */
+    0 75%;      /* Shelf */
+  background-repeat: no-repeat;
+}
+
+/* GYM OBJECTS */
+.pixel-exercise {
+  bottom: 45%;
+  right: 30%;
+  width: 72px;
+  height: 40px;
+  background: 
+    /* Weight plates with detailed texture */
+    radial-gradient(circle at 15% 50%, #2F2F2F 0%, #1C1C1C 100%),
+    radial-gradient(circle at 85% 50%, #2F2F2F 0%, #1C1C1C 100%),
+    /* Barbell with grip texture */
+    repeating-linear-gradient(90deg, #C0C0C0 0%, #C0C0C0 2px, #A9A9A9 2px, #A9A9A9 4px),
+    /* Base/platform */
+    linear-gradient(to bottom, #696969 0%, #2F2F2F 100%);
+  background-size: 
+    16px 32px,  /* Weight 1 */
+    16px 32px,  /* Weight 2 */
+    40px 6px,   /* Barbell */
+    100% 20%;   /* Base */
+  background-position: 
+    5% 20%,     /* Weight 1 */
+    75% 20%,    /* Weight 2 */
+    30% 47%,    /* Barbell */
+    0 80%;      /* Base */
+  background-repeat: no-repeat;
+}
+
+.pixel-treadmill {
+  bottom: 25%;
+  left: 15%;
+  width: 80px;
+  height: 48px;
+  background: 
+    /* Display screen */
+    linear-gradient(to bottom, #000080 0%, #000000 100%),
+    /* Control panel */
+    repeating-linear-gradient(90deg, #E0E0E0 0%, #E0E0E0 2px, #C0C0C0 2px, #C0C0C0 4px),
+    /* Running belt */
+    linear-gradient(to bottom, #2F2F2F 0%, #1C1C1C 100%),
+    /* Side rails */
+    linear-gradient(to bottom, #C0C0C0 0%, #A9A9A9 100%),
+    /* Base frame */
+    linear-gradient(to bottom, #696969 0%, #2F2F2F 100%);
+  background-size: 
+    16px 8px,   /* Display */
+    24px 6px,   /* Controls */
+    60% 40%,    /* Belt */
+    100% 8px,   /* Rails */
+    100% 100%;  /* Frame */
+  background-position: 
+    40% 15%,    /* Display */
+    30% 25%,    /* Controls */
+    20% 45%,    /* Belt */
+    0 35%,      /* Rails */
+    0 0;        /* Frame */
+  background-repeat: no-repeat;
+}
+
+.pixel-dumbbells {
+  bottom: 35%;
+  left: 5%;
+  width: 48px;
+  height: 24px;
+  background: 
+    /* Dumbbell weights */
+    radial-gradient(circle at 20% 50%, #2F2F2F 0%, #1C1C1C 100%),
+    radial-gradient(circle at 80% 50%, #2F2F2F 0%, #1C1C1C 100%),
+    radial-gradient(circle at 20% 80%, #2F2F2F 0%, #1C1C1C 100%),
+    radial-gradient(circle at 80% 80%, #2F2F2F 0%, #1C1C1C 100%),
+    /* Handles */
+    linear-gradient(90deg, #C0C0C0 0%, #A9A9A9 100%),
+    linear-gradient(90deg, #C0C0C0 0%, #A9A9A9 100%),
+    /* Rack */
+    linear-gradient(to bottom, #8B4513 0%, #654321 100%);
+  background-size: 
+    8px 12px,   /* Weight 1 */
+    8px 12px,   /* Weight 2 */
+    8px 12px,   /* Weight 3 */
+    8px 12px,   /* Weight 4 */
+    24px 3px,   /* Handle 1 */
+    24px 3px,   /* Handle 2 */
+    100% 100%;  /* Rack */
+  background-position: 
+    15% 20%,    /* Weight 1 */
+    75% 20%,    /* Weight 2 */
+    15% 60%,    /* Weight 3 */
+    75% 60%,    /* Weight 4 */
+    25% 35%,    /* Handle 1 */
+    25% 75%,    /* Handle 2 */
+    0 0;        /* Rack */
+  background-repeat: no-repeat;
+}
+
+.pixel-yoga-mat {
+  bottom: 15%;
+  right: 20%;
+  width: 64px;
+  height: 24px;
+  background: 
+    /* Mat texture with pattern */
+    repeating-linear-gradient(45deg, #8A2BE2 0%, #8A2BE2 2px, #9370DB 2px, #9370DB 4px),
+    /* Mat base */
+    linear-gradient(to bottom, #9370DB 0%, #8A2BE2 100%);
+  background-size: 
+    100% 100%,  /* Texture */
+    100% 100%;  /* Base */
+  background-position: 
+    0 0,        /* Texture */
+    0 0;        /* Base */
+  background-repeat: repeat, no-repeat;
+  border-radius: 8px;
+}
+
+.pixel-gym-mirror {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  width: 72px;
+  height: 48px;
+  background: 
+    /* Reflection with gym equipment */
+    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(192, 192, 192, 0.2) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(169, 169, 169, 0.2) 75%, rgba(255, 255, 255, 0.1) 100%),
+    /* Mirror surface */
+    linear-gradient(135deg, #F5F5F5 0%, #E0E0E0 50%, #D3D3D3 100%),
+    /* Frame */
+    linear-gradient(to bottom, #2F2F2F 0%, #1C1C1C 100%);
+  background-size: 
+    68px 44px,  /* Reflection */
+    70px 46px,  /* Mirror */
+    100% 100%;  /* Frame */
+  background-position: 
+    3% 4%,      /* Reflection */
+    1% 2%,      /* Mirror */
+    0 0;        /* Frame */
+  background-repeat: no-repeat;
+}
+
+.pixel-speaker {
+  bottom: 60%;
+  right: 30%;
+  width: 24px;
+  height: 32px;
+  background: 
+    /* Speaker grille */
+    repeating-linear-gradient(0deg, #2F2F2F 0%, #2F2F2F 1px, #1C1C1C 1px, #1C1C1C 2px),
+    /* LED indicator */
+    radial-gradient(circle at 50% 20%, #00FF00 0%, #32CD32 100%),
+    /* Speaker body */
+    linear-gradient(to bottom, #1C1C1C 0%, #000000 100%);
+  background-size: 
+    80% 60%,    /* Grille */
+    4px 4px,    /* LED */
+    100% 100%;  /* Body */
+  background-position: 
+    10% 30%,    /* Grille */
+    48% 15%,    /* LED */
+    0 0;        /* Body */
+  background-repeat: repeat, no-repeat, no-repeat;
+}
+
+/* Completion indicators */
+.pixel-completion {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at center, #32CD32 0%, #228B22 100%);
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 8px;
+  font-weight: bold;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+/* 2D Character */
+.pixel-character {
+  position: absolute;
+  bottom: 45%;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+  z-index: 10;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.alex-sprite-2d {
+  width: 36px;
+  height: 52px;
+  position: relative;
+  transition: all 0.3s ease;
+  image-rendering: pixelated;
+  background: 
+    /* Head with shading */
+    radial-gradient(circle at 40% 30%, #FFF8DC 0%, #F0E68C 50%, #DAA520 100%),
+    /* Hair */
+    linear-gradient(to bottom, #8B4513 0%, #654321 100%),
+    /* Shirt with texture */
+    repeating-linear-gradient(90deg, #4169E1 0%, #4169E1 2px, #0000FF 2px, #0000FF 4px),
+    /* Pants */
+    linear-gradient(to bottom, #2F4F4F 0%, #1C1C1C 100%),
+    /* Shoes */
+    linear-gradient(to bottom, #8B4513 0%, #654321 100%);
+  background-size: 
+    22px 22px,  /* Head */
+    18px 8px,   /* Hair */
+    28px 18px,  /* Shirt */
+    20px 16px,  /* Pants */
+    24px 8px;   /* Shoes */
+  background-position: 
+    39% 8%,     /* Head */
+    42% 2%,     /* Hair */
+    22% 35%,    /* Shirt */
+    44% 60%,    /* Pants */
+    33% 85%;    /* Shoes */
+  background-repeat: no-repeat;
+  border-radius: 1px;
+  filter: contrast(1.1) saturate(1.1);
+}
+
+.alex-sprite-2d::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 40% 30%, #FFF8DC 0%, #F0E68C 100%);
+  border: 1px solid #DAA520;
+  border-radius: 50%;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.alex-sprite-2d::after {
+  content: '😊';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  z-index: 1;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.alex-idle-2d {
+  animation: idle-2d 3s ease-in-out infinite;
+}
+
+@keyframes idle-2d {
+  0%, 100% { 
+    transform: translateY(0) scaleY(1);
+    filter: contrast(1.1) saturate(1.1);
+  }
+  50% { 
+    transform: translateY(-3px) scaleY(1.03);
+    filter: contrast(1.15) saturate(1.15) brightness(1.05);
+  }
+}
+
+.alex-sleep::after {
+  content: '😴';
+}
+
+.alex-eat::after {
+  content: '😋';
+}
+
+.alex-exercise::after {
+  content: '💪';
+}
+
+.alex-relax::after {
+  content: '😌';
+}
+
+.alex-drinkWater::after {
+  content: '😊';
+}
+
+.alex-shower::after {
+  content: '🚿';
+}
+
+.character-shadow-2d {
+  width: 28px;
+  height: 8px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 70%, transparent 100%);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* Enhanced Room-specific object visibility */
+.room-bedroom .pixel-bed,
+.room-bedroom .pixel-computer,
+.room-bedroom .pixel-wardrobe,
+.room-bedroom .pixel-bedroom-mirror {
+  display: block;
+}
+
+.room-living .pixel-sofa,
+.room-living .pixel-tv,
+.room-living .pixel-bookshelf,
+.room-living .pixel-videogame,
+.room-living .pixel-living-window {
+  display: block;
+}
+
+.room-kitchen .pixel-table,
+.room-kitchen .pixel-fridge,
+.room-kitchen .pixel-stove,
+.room-kitchen .pixel-microwave,
+.room-kitchen .pixel-water {
+  display: block;
+}
+
+.room-gym .pixel-exercise,
+.room-gym .pixel-treadmill,
+.room-gym .pixel-dumbbells,
+.room-gym .pixel-yoga-mat,
+.room-gym .pixel-gym-mirror,
+.room-gym .pixel-speaker {
+  display: block;
+}
+
+.room-bathroom .pixel-shower,
+.room-bathroom .pixel-bathroom-sink,
+.room-bathroom .pixel-toilet,
+.room-bathroom .pixel-skincare {
+  display: block;
+}
+
+/* Hide objects not in current room */
+.pixel-object,
+.pixel-living-window {
+  display: none;
+}
+
+/* Responsive adjustments for 2D */
+@media (max-width: 768px) {
+  .pixel-object {
+    transform: scale(0.85);
+  }
+  
+  .alex-sprite-2d {
+    width: 32px;
+    height: 46px;
+  }
+  
+  .pixel-living-window {
+    transform: scale(0.85);
+  }
+}
+
+/* Enhanced lighting effects */
+@keyframes ambient-glow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.pixel-room-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+  animation: ambient-glow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Texture enhancement for better visual quality */
+.pixel-object,
+.alex-sprite-2d {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
